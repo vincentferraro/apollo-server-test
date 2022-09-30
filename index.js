@@ -6,7 +6,7 @@ const { ApolloServer, gql } = require("apollo-server");
 const typeDefs = gql`
   type Book {
     title: String
-    author: Author
+    author: String
   }
 
   type Author {
@@ -20,6 +20,19 @@ const typeDefs = gql`
   type Mutation {
     addBook(title: String, author: String): Book
   }
+
+  interface MutationResponse {
+    code: String!
+    success: Boolean!
+    message: String!
+  }
+
+  type CreateBookMutationResponse implements MutationResponse {
+    code: String!
+    success: Boolean!
+    message: String!
+    book: Book
+  }
 `;
 
 // Create data
@@ -27,27 +40,19 @@ const typeDefs = gql`
 const books = [
   {
     title: "The Awakening",
-    author: {
-      name: "Kate Chopin",
-    },
+    author: "Kate Chopin",
   },
   {
     title: "City of glass",
-    author: {
-      name: "Paul Auster",
-    },
+    author: "Henry Ford",
   },
   {
     title: "The Awakening 2",
-    author: {
-      name: "Kate Chopin",
-    },
+    author: "Kate Chopin",
   },
   {
     title: "City of glass 2",
-    author: {
-      name: "Paul Auster",
-    },
+    author: "Henry Ford",
   },
 ];
 
