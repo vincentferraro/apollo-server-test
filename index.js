@@ -20,24 +20,11 @@ const typeDefs = gql`
   type Mutation {
     addBook(title: String, author: String): Book
   }
-
-  interface MutationResponse {
-    code: String!
-    success: Boolean!
-    message: String!
-  }
-
-  type CreateBookMutationResponse implements MutationResponse {
-    code: String!
-    success: Boolean!
-    message: String!
-    book: Book
-  }
 `;
 
 // Create data
 
-const books = [
+let books = [
   {
     title: "The Awakening",
     author: "Kate Chopin",
@@ -80,6 +67,16 @@ const resolvers = {
   Query: {
     books: () => books,
     authors: () => authors,
+  },
+  Mutation: {
+    addBook(_, { title, author }) {
+      console.log(title, author);
+      books.push({ title, author });
+      return {
+        title,
+        author,
+      };
+    },
   },
 };
 
