@@ -3,7 +3,6 @@
 const { ApolloServer, gql } = require("apollo-server");
 
 // Set typeDefs
-
 const typeDefs = gql`
   type Book {
     title: String
@@ -17,6 +16,9 @@ const typeDefs = gql`
   type Query {
     books: [Book]
     authors: [Author]
+  }
+  type Mutation {
+    addBook(title: String, author: String): Book
   }
 `;
 
@@ -35,20 +37,35 @@ const books = [
       name: "Paul Auster",
     },
   },
+  {
+    title: "The Awakening 2",
+    author: {
+      name: "Kate Chopin",
+    },
+  },
+  {
+    title: "City of glass 2",
+    author: {
+      name: "Paul Auster",
+    },
+  },
 ];
 
 const authors = [
   {
     name: "Kate Chopin",
-    books: {
-      title: "The Awakening",
-    },
+    books: [
+      {
+        title: "The Awakening",
+      },
+      {
+        title: "The Awakening 2",
+      },
+    ],
   },
   {
     name: "Paul Auster",
-    books: {
-      title: "City of glass",
-    },
+    books: [{ title: "The Awakening 2" }, { title: "City of glass 2" }],
   },
 ];
 
